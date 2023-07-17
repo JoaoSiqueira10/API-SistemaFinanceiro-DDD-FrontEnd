@@ -17,7 +17,11 @@ export class SistemaComponent {
 
     this.sistemaForm = this.formBuilder.group(
       {
-        name:['',Validators.required]
+        name:['',Validators.required],
+        valor:['',Validators.required],
+        data:['',Validators.required],
+        sistemaSelect:['',Validators.required],
+        categoriaSelect:['',Validators.required]
       }
     )
   }
