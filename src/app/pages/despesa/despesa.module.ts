@@ -6,6 +6,7 @@ import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 import { SidebarModule } from 'src/app/components/sidebar/sidebar.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 @NgModule(
@@ -17,9 +18,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
             DespesaRoutingModule,
             NavbarModule,
             SidebarModule,
+
             FormsModule,
             ReactiveFormsModule,
-            NgSelectModule
+            NgSelectModule,
+            MatSlideToggleModule
         ]
     }
 )
