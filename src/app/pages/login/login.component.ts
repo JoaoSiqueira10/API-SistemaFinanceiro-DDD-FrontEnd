@@ -14,9 +14,9 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponent {
 
   constructor(public formBuilder: FormBuilder,
-  private router: Router,
-  private loginService: LoginService,
-  public authService:AuthService ){
+    private router: Router,
+    private loginService: LoginService,
+    public authService: AuthService) {
 
   }
 
@@ -46,7 +46,7 @@ export class LoginComponent {
       },
       err => {
         alert('Ocorreu um erro');
-    }
+      }
     )
   }
 

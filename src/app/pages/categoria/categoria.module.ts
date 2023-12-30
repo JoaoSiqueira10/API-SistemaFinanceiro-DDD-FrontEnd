@@ -10,9 +10,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule(
     {
-        providers:[],
-        declarations:[CategoriaComponent],
-        imports:[
+        providers: [],
+        declarations: [CategoriaComponent],
+        imports: [
             CommonModule,
             CategoriaRoutingModule,
             NavbarModule,

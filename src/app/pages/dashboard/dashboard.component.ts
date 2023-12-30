@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuService } from 'src/app/services/menuservice';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { MenuService } from 'src/app/services/menuservice';
 export class DashboardComponent {
   constructor(public menuService:MenuService){}
 
-  ngOnInit(){
+  ngOnInit() {
     this.menuService.menuSelecionado = 1;
   }
 }

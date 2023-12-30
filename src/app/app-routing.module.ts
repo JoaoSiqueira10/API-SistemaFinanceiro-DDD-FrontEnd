@@ -6,14 +6,14 @@ import { AuthGuard } from './pages/guards/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    pathMatch:'full',
-    redirectTo:'login'
+    pathMatch: 'full',
+    redirectTo: 'login'
   },
   {
-    path:'login', component: LoginComponent
+    path: 'login', component: LoginComponent
   },
   {
-    path:'', component: LoginComponent
+    path: '', component: LoginComponent
   },
   {
     path:'dashboard',loadChildren: ()=>import('./pages/dashboard/dashboard.module').then(m=>m.DashboardModule),

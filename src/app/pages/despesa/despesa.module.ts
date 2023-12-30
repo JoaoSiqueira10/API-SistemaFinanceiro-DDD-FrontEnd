@@ -10,9 +10,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule(
     {
-        providers:[],
-        declarations:[DespesaComponent],
-        imports:[
+        providers: [],
+        declarations: [DespesaComponent],
+        imports: [
             CommonModule,
             DespesaRoutingModule,
             NavbarModule,
@@ -24,4 +24,4 @@ import { NgSelectModule } from '@ng-select/ng-select';
     }
 )
 
-export class DespesaModule{}
+export class DespesaModule { }

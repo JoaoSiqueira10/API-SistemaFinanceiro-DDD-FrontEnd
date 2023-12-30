@@ -9,9 +9,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule(
     {
-        providers:[],
-        declarations:[SistemaComponent],
-        imports:[
+        providers: [],
+        declarations: [SistemaComponent],
+        imports: [
             CommonModule,
             SistemaRoutingModule,
             NavbarModule,
@@ -21,4 +21,4 @@ import { ReactiveFormsModule } from '@angular/forms';
     }
 )
 
-export class SistemaModule{}
+export class SistemaModule { }
