@@ -82,7 +82,7 @@ export class SistemaComponent {
   ngOnInit() {
     this.menuService.menuSelecionado = 2;
 
-    this.config();
+    this.configpag();
     this.ListaSistemasUsuario();
 
     this.sistemaForm = this.formBuilder.group
@@ -119,7 +119,7 @@ export class SistemaComponent {
 
       this.sistemaService.CadastrarUsuarioNoSistema(response.Id, this.authService.getEmailUser())
       .subscribe((response: any) => {
-        debugger
+        this.ListaSistemasUsuario();
       }, (error) => console.error(error),
         () => { })
 

@@ -19,5 +19,10 @@ export class DespesaService {
     {
         return  this.httpClient.post<Despesa>(`${this.baseURL}/AdicionarDespesa`,
         despesa)
-    }   
+    } 
+    
+    ListarDespesasUsuario(emailUsuario:string)
+    {
+        return  this.httpClient.get(`${this.baseURL}/ListarDespesasUsuario?emailUsuario=${emailUsuario}`);       
+    } 
 }
