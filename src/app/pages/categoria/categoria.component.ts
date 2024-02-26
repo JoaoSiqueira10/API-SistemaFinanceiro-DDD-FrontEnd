@@ -113,7 +113,7 @@ export class CategoriaComponent {
 
     let item = new Categoria();
     item.Nome = dados["name"].value;
-    item.Id =0;
+    item.Id = 0;
     item.IdSistema = parseInt(this.sistemaSelect.id)
 
     this.categoriaService.AdicionarCategoria(item)
