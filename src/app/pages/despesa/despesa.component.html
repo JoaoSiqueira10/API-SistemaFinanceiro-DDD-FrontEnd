@@ -102,9 +102,12 @@
                 <tbody>
                     <tr class="select-item" *ngFor="let item of tableListDespesas | paginate: config; let i = index"
                         class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca' : i % 2 !== 0}">
+
                         <td>{{item.Id}}</td>
                         <td>{{item.Nome}}</td>
-                        <td> Edit</td>
+
+                        <td (click)="edicao(item.Id)"> Edit</td>
+
                     </tr>
                 </tbody>
             </table>

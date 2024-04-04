@@ -108,40 +108,93 @@ export class CategoriaComponent {
   }
 
   enviar() {
-    debugger
+
     var dados = this.dadorForm();
 
-    let item = new Categoria();
-    item.Nome = dados["name"].value;
-    item.Id = 0;
-    item.IdSistema = parseInt(this.sistemaSelect.id)
+    if (this.itemEdicao) {
 
-    this.categoriaService.AdicionarCategoria(item)
-    .subscribe((response: Categoria) => {
-  
-      this.categoriaForm.reset();
+      this.itemEdicao.Nome = dados["name"].value;
+      this.itemEdicao.IdSistema = parseInt(this.sistemaSelect.id)
+      this.itemEdicao.NomePropriedade = "";
+      this.itemEdicao.mensagem = "";
+      this.itemEdicao.notificacoes = [];
 
-      this.ListarCategoriasUsuario();
-     
-    }, (error) => console.error(error),
-      () => { })
+      this.categoriaService.AtualizarCategoria(this.itemEdicao)
+        .subscribe((response: Categoria) => {
+          this.categoriaForm.reset();
+          this.ListarCategoriasUsuario();
+
+        }, (error) => console.error(error),
+          () => { })
+    }
+    else {
+
+      let item = new Categoria();
+      item.Nome = dados["name"].value;
+      item.Id = 0;
+      item.IdSistema = parseInt(this.sistemaSelect.id)
+
+      this.categoriaService.AdicionarCategoria(item)
+        .subscribe((response: Categoria) => {
+
+          this.categoriaForm.reset();
+
+          this.ListarCategoriasUsuario();
+
+        }, (error) => console.error(error),
+          () => { })
+    }
 
   }
 
-  ListaSistemasUsuario() {
-    this.sistemaService.ListaSistemasUsuario(this.authService.getEmailUser()).subscribe((reponse: Array<SistemaFinanceiro>) => {
-      var lisSistemaFinanceiro = [];
 
-      reponse.forEach(x => {
-        var item = new SelectModel();
-        item.id = x.Id.toString();
-        item.name = x.Nome;
+  ListaSistemasUsuario(id: number = null) {
+    this.sistemaService.ListaSistemasUsuario(this.authService.getEmailUser())
+      .subscribe((reponse: Array<SistemaFinanceiro>) => {
 
-        lisSistemaFinanceiro.push(item);
-      });
+        var lisSistemaFinanceiro = [];
 
-      this.listSistemas = lisSistemaFinanceiro;
+        reponse.forEach(x => {
+          var item = new SelectModel();
+          item.id = x.Id.toString();
+          item.name = x.Nome;
+          lisSistemaFinanceiro.push(item);
 
-    })
+          if (id && id == x.Id) {
+            this.sistemaSelect = item;
+          }
+
+        });
+
+        this.listSistemas = lisSistemaFinanceiro;
+
+      }
+
+      )
+  }
+
+
+  itemEdicao: Categoria;
+
+  edicao(id: number) {
+    this.categoriaService.ObterCategoria(id)
+      .subscribe((reponse: Categoria) => {
+
+        if (reponse) {
+          this.itemEdicao = reponse;
+          this.tipoTela = 2;
+
+          var sistema = reponse;
+
+          var dados = this.dadorForm();
+          dados["name"].setValue(this.itemEdicao.Nome)
+          this.ListaSistemasUsuario(reponse.IdSistema)
+        }
+
+      },
+        (error) => console.error(error),
+        () => {
+
+        })
   }
 }
