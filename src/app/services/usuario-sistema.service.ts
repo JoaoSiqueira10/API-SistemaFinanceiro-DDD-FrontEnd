@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environment';
 import { SistemaFinanceiro } from '../models/SistemaFinanceiro';
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -28,8 +27,6 @@ export class UsuarioSistemaFinanceiro {
     DeleteUsuarioSistemaFinanceiro(id: number) {
         return this.httpClient.delete(`${this.baseURL}/DeleteUsuarioSistemaFinanceiro?id=${id}`);
     }
-
-    
 
 
 }

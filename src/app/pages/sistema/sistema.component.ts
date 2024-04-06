@@ -4,7 +4,6 @@ import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
 import { AuthService } from 'src/app/services/auth.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { SistemaService } from 'src/app/services/sistema.service';
-import { UsuarioSistemaFinanceiro } from 'src/app/services/usuario-sistema.service';
 
 @Component({
   selector: 'app-sistema',
@@ -22,14 +21,6 @@ export class SistemaComponent {
   paginacao: boolean = true;
   itemsPorPagina: number = 10
 
-  tableListUsuariosistema: Array<any>;
-  id2: string;
-  page2: number = 1;
-  config2: any;
-  paginacao2: boolean = true;
-  itemsPorPagina2: number = 10
-
-
   configpag() {
     this.id = this.gerarIdParaConfigDePaginacao();
 
@@ -37,15 +28,6 @@ export class SistemaComponent {
       id: this.id,
       currentPage: this.page,
       itemsPerPage: this.itemsPorPagina
-
-    };
-
-    this.id2 = this.gerarIdParaConfigDePaginacao();
-
-    this.config2 = {
-      id: this.id2,
-      currentPage: this.page2,
-      itemsPerPage: this.itemsPorPagina2
 
     };
   }
@@ -75,19 +57,8 @@ export class SistemaComponent {
   mudarPage(event: any) {
     this.page = event;
     this.config.currentPage = this.page;
-  }  
-
-
-  mudarItemsPorPage2() {
-    this.page2 = 1
-    this.config2.currentPage = this.page2;
-    this.config2.itemsPerPage = this.itemsPorPagina2;
   }
 
-  mudarPage2(event: any) {
-    this.page2 = event;
-    this.config2.currentPage = this.page2;
-  }
 
   ListaSistemasUsuario() {
     this.itemEdicao = null;
@@ -95,32 +66,21 @@ export class SistemaComponent {
 
     this.sistemaService.ListaSistemasUsuario(this.authService.getEmailUser())
       .subscribe((response: Array<SistemaFinanceiro>) => {
-      this.tableListSistemas = response;
-    }, (error) => console.error(error), () => { })
 
-  }
+        this.tableListSistemas = response;
 
-  ListarUsuariosSistema() {
-
-    this.usuarioSistemaFinanceiro.ListarUsuariosSistema(this.itemEdicao.Id)
-      .subscribe((response: Array<any>) => {
-
-        this.tableListUsuariosistema = response;
       }, (error) => console.error(error),
         () => { })
 
   }
 
-
   constructor(public menuService: MenuService, public formBuilder: FormBuilder,
-    public sistemaService: SistemaService, public authService: AuthService,
-    public usuarioSistemaFinanceiro: UsuarioSistemaFinanceiro) {
+    public sistemaService: SistemaService, public authService: AuthService) {
   }
 
   sistemaForm: FormGroup;
-
-  gerarCopiaDespesa = 'accent';
   checked = false;
+  gerarCopiaDespesa = 'accent';
   disabled = false;
 
   ngOnInit() {
@@ -183,13 +143,15 @@ export class SistemaComponent {
       item.AnoCopia = dados["anoCopia"].value;
 
       this.sistemaService.AdicionarSistemaFinanceiro(item)
-      .subscribe((response: SistemaFinanceiro) => {
-  
-        this.sistemaForm.reset();
+        .subscribe((response: SistemaFinanceiro) => {
 
-        this.sistemaService.CadastrarUsuarioNoSistema(response.Id, this.authService.getEmailUser())
-          .subscribe((response: any) => {
-          this.ListaSistemasUsuario();
+          this.sistemaForm.reset();
+
+          this.sistemaService.CadastrarUsuarioNoSistema(response.Id, this.authService.getEmailUser())
+            .subscribe((response: any) => {
+
+              this.ListaSistemasUsuario();
+
         }, (error) => console.error(error),() => { })
       }, (error) => console.error(error),() => { })
     }
@@ -203,7 +165,7 @@ export class SistemaComponent {
         this.itemEdicao = reponse;
         this.tipoTela = 2;
 
-        var dados = this.dadosForm();
+          var dados = this.dadosForm();
           dados["name"].setValue(this.itemEdicao.Nome)
 
           dados["mes"].setValue(this.itemEdicao.Mes);
@@ -212,25 +174,6 @@ export class SistemaComponent {
           this.checked = this.itemEdicao.GerarCopiaDespesa;
           dados["mesCopia"].setValue(this.itemEdicao.MesCopia);
           dados["anoCopia"].setValue(this.itemEdicao.AnoCopia);
-
-          this.ListarUsuariosSistema();
-
-        }
-
-      },
-        (error) => console.error(error),
-        () => {
-
-        })
-  }
-
-  excluir(id: number) {
-    this.usuarioSistemaFinanceiro.DeleteUsuarioSistemaFinanceiro(id)
-      .subscribe((reponse: SistemaFinanceiro) => {
-
-        if (reponse) {
-          this.edicao(this.itemEdicao.Id)
-          this.emailUsuarioSistema = "";
         }
 
       },
@@ -244,29 +187,4 @@ export class SistemaComponent {
     this.checked = item.checked as boolean;
   }
 
-
-  emailUsuarioSistema: string = "";
-  emailUsuarioSistemaValid: boolean = true;
-  textValid: string = "Campo Obrigatório!";
-
-  addUsuarioSistema() {
-    this.emailUsuarioSistemaValid = true;
-
-    if (!this.emailUsuarioSistema) {
-      this.emailUsuarioSistemaValid = false;
-    }
-    else {
-
-      this.sistemaService.CadastrarUsuarioNoSistema(this.itemEdicao.Id, this.emailUsuarioSistema)
-        .subscribe((response: any) => {
-
-          if (response) {
-            this.edicao(this.itemEdicao.Id)
-            this.emailUsuarioSistema = "";
-          }
-
-        }, (error) => console.error(error),
-          () => { })
-    }
-  }
 }

@@ -21,14 +21,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
             NavbarModule,
             SidebarModule,
             ReactiveFormsModule,
-            
+
             NgxPaginationModule,
             FormsModule,
             NgSelectModule,
             MatIconModule,
-
-            MatSlideToggleModule,
-           
+            MatSlideToggleModule
+            
         ]
     }
 )
